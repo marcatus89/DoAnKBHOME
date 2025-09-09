@@ -1,0 +1,68 @@
+@page "/thanh-toan"
+@attribute [Authorize]
+@inject NavigationManager Navigation
+@inject OrderService OrderSvc
+@inject CartService CartSvc
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<h3>Thông tin Thanh toán</h3>
+
+@if (errorMessage != null)
+{
+    <div class="alert alert-danger">@errorMessage</div>
+}
+
+@if (!CartSvc.Items.Any())
+{
+    <p>Giỏ hàng của bạn đang trống. Vui lòng thêm sản phẩm trước khi thanh toán.</p>
+}
+else
+{
+    <EditForm Model="@order" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group mb-3">
+            <label for="customerName">Họ và tên</label>
+            <InputText id="customerName" class="form-control" @bind-Value="order.CustomerName" />
+        </div>
+        <div class="form-group mb-3">
+            <label for="shippingAddress">Địa chỉ giao hàng</label>
+            <InputText id="shippingAddress" class="form-control" @bind-Value="order.ShippingAddress" />
+        </div>
+        <div class="form-group mb-3">
+            <label for="phoneNumber">Số điện thoại</label>
+            <InputText id="phoneNumber" class="form-control" @bind-Value="order.PhoneNumber" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Xác nhận và Đặt hàng</button>
+    </EditForm>
+}
+
+@code {
+    private Order order = new Order();
+    private string? errorMessage;
+    
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; } = default!;
+
+    private async Task HandleValidSubmit()
+    {
+        errorMessage = null; // Xóa thông báo lỗi cũ
+        var authState = await authenticationStateTask;
+        var user = authState.User;
+
+        // Nhận kết quả từ service
+        var resultMessage = await OrderSvc.PlaceOrderAsync(order, user);
+        
+        if (resultMessage == null) // null = thành công
+        {
+            Navigation.NavigateTo("/xac-nhan-don-hang");
+        }
+        else // Có lỗi, hiển thị thông báo
+        {
+            errorMessage = resultMessage;
+        }
+    }
+}
+

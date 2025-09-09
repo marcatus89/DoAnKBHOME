@@ -1,0 +1,80 @@
+@page "/gio-hang"
+@implements IDisposable
+@inject CartService CartSvc
+
+
+<h3>Giỏ hàng của bạn</h3>
+
+@if (!CartSvc.Items.Any())
+{
+    <p>Giỏ hàng của bạn đang trống.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Sản phẩm</th>
+                <th>Giá</th>
+                <th style="width: 150px;">Số lượng</th>
+                <th>Tổng phụ</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in CartSvc.Items)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>@item.Price.ToString("n0")</td>
+                    <td>
+                        <button class="btn btn-secondary btn-sm"
+                            @onclick="() => UpdateQuantity(item, item.Quantity - 1)">-</button>
+                        <span class="mx-2">@item.Quantity</span>
+                        <button class="btn btn-secondary btn-sm"
+                            @onclick="() => UpdateQuantity(item, item.Quantity + 1)">+</button>
+                    </td>
+                    <td>@((item.Price * item.Quantity).ToString("n0"))</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" @onclick="() => RemoveItem(item.ProductId)">Xóa</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="text-right"><strong>Tổng cộng:</strong></td>
+                <td><strong>@CartSvc.Total.ToString("n0") VNĐ</strong></td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+    <div class="text-right">
+        <a href="/thanh-toan" class="btn btn-success">Tiến hành Thanh toán</a>
+    </div>
+}
+
+
+@code {
+    protected override void OnInitialized()
+    {
+        // Đăng ký lắng nghe sự kiện để component tự động cập nhật
+        CartSvc.OnChange += StateHasChanged;
+    }
+
+    private void UpdateQuantity(CartItem item, int quantity)
+    {
+        CartSvc.UpdateQuantity(item.ProductId, quantity);
+    }
+
+    private void RemoveItem(int productId)
+    {
+        CartSvc.RemoveFromCart(productId);
+    }
+
+    public void Dispose()
+    {
+        // Hủy đăng ký khi component bị hủy
+        CartSvc.OnChange -= StateHasChanged;
+    }
+}

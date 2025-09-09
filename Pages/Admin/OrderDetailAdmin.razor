@@ -1,0 +1,115 @@
+@page "/admin/orders/{OrderId:int}"
+@attribute [Authorize(Roles = "Admin, Sales, Accounting, Warehouse, Logistics")]
+@using Microsoft.EntityFrameworkCore
+@inject ApplicationDbContext DbContext
+@inject NavigationManager Navigation
+
+<h3>Chi tiết Đơn hàng #@OrderId</h3>
+
+@if (CurrentOrder == null)
+{
+    <LoadingSpinner />
+}
+else
+{
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                 <div class="card-header">
+                    <strong>Số phiếu:</strong> @CurrentOrder.Id | 
+                    <strong>Trạng thái:</strong> <span class="badge @(CurrentOrder.Status == "Hoàn thành" ? "bg-success" : "bg-warning text-dark")">@CurrentOrder.Status</span>
+                </div>
+                <div class="card-body">
+                    <h4>Thông tin Khách hàng</h4>
+                    <p><strong>Tên:</strong> @CurrentOrder.CustomerName</p>
+                    <p><strong>Địa chỉ:</strong> @CurrentOrder.ShippingAddress</p>
+                    <p><strong>Số điện thoại:</strong> @CurrentOrder.PhoneNumber</p>
+                    
+                    @* Hiển thị ghi chú của Sales nếu có *@
+                    @if (!string.IsNullOrWhiteSpace(CurrentOrder.SalesNotes))
+                    {
+                        <hr/>
+                        <h4>Ghi chú Sales</h4>
+                        <p class="text-muted"><em>@CurrentOrder.SalesNotes</em></p>
+                    }
+
+                    @if(CurrentOrder.Shipment != null)
+                    {
+                        <hr/>
+                        <h4>Thông tin Giao hàng</h4>
+                        <p><strong>ĐV Vận chuyển:</strong> @CurrentOrder.Shipment.ShippingProvider</p>
+                        <p><strong>Mã vận đơn:</strong> @CurrentOrder.Shipment.TrackingNumber</p>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+             <div class="card">
+                <div class="card-header">Hành động</div>
+                <div class="card-body">
+                    <AuthorizeView Roles="Admin">
+                        <select class="form-select mb-2" @bind="newStatus">
+                            <option value="Chờ xác nhận">Chờ xác nhận</option>
+                            <option value="Chờ thanh toán">Chờ thanh toán</option>
+                            <option value="Đã thanh toán">Đã thanh toán</option>
+                            <option value="Sẵn sàng giao hàng">Sẵn sàng giao hàng</option>
+                            <option value="Đang giao">Đang giao</option>
+                            <option value="Hoàn thành">Hoàn thành</option>
+                            <option value="Đã hủy">Đã hủy</option>
+                        </select>
+                    </AuthorizeView>
+                     <AuthorizeView Roles="Sales">
+                        @if (CurrentOrder.Status == "Chờ xác nhận")
+                        {
+                             <div class="mb-2">
+                                <label><strong>Ghi chú Sales:</strong></label>
+                                <InputTextArea @bind-Value="salesNoteInput" class="form-control" rows="3" />
+                            </div>
+                            <select class="form-select mb-2" @bind="newStatus">
+                                <option value="Chờ thanh toán">Xác nhận đơn</option>
+                                <option value="Đã hủy">Hủy đơn</option>
+                            </select>
+                        }
+                    </AuthorizeView>
+                     <button class="btn btn-primary w-100" @onclick="UpdateStatus">Cập nhật Trạng thái</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public int OrderId { get; set; }
+    private Order? CurrentOrder;
+    private string newStatus = string.Empty;
+    private string? salesNoteInput;
+
+    protected override async Task OnInitializedAsync()
+    {
+        CurrentOrder = await DbContext.Orders
+                                    .Include(o => o.Shipment)
+                                    .FirstOrDefaultAsync(o => o.Id == OrderId);
+        if (CurrentOrder != null)
+        {
+            newStatus = CurrentOrder.Status;
+            salesNoteInput = CurrentOrder.SalesNotes;
+        }
+    }
+
+    private async Task UpdateStatus()
+    {
+        if (CurrentOrder != null && !string.IsNullOrEmpty(newStatus))
+        {
+            CurrentOrder.Status = newStatus;
+            // Chỉ lưu ghi chú nếu có nội dung
+            if(!string.IsNullOrWhiteSpace(salesNoteInput))
+            {
+                CurrentOrder.SalesNotes = salesNoteInput;
+            }
+            await DbContext.SaveChangesAsync();
+            StateHasChanged();
+        }
+    }
+}
+

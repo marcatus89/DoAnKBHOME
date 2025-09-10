@@ -262,4 +262,4 @@
 /Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/DoAnTotNghiep.genruntimeconfig.cache
 /Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/ref/DoAnTotNghiep.dll
 /Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/DoAnTotNghiep.sourcelink.json
-/Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/compressed/sh2e58k8mv-u44u0g2c04.gz
+/Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/compressed/sh2e58k8mv-6us2vyytpt.gz

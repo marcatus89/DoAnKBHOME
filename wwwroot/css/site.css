@@ -518,32 +518,25 @@ a:hover {
     width: auto;
 }
 
-/* QUY TẮC MỚI, MẠNH MẼ HƠN */
-@media screen {
-    .printable-container {
-        display: none;
-    }
-}
-
 @media print {
+    /* Ẩn hoàn toàn tất cả các phần tử trên trang */
     body * {
         visibility: hidden;
     }
 
+    /* Chỉ hiện thị khu vực cần in và các phần tử con của nó */
     #printable-area, #printable-area * {
         visibility: visible;
     }
 
+    /* Đưa khu vực in lên đầu trang để đảm bảo nó chiếm toàn bộ không gian */
     #printable-area {
-        display: block !important;
         position: absolute;
         left: 0;
         top: 0;
         width: 100%;
     }
 }
-/* KẾT THÚC QUY TẮC MỚI */
-
 
 /* --- NProgress bar custom styles --- */
 #nprogress .bar {
@@ -557,4 +550,3 @@ a:hover {
   border-top-color: var(--accent-color) !important;
   border-left-color: var(--accent-color) !important;
 }
-

@@ -3,12 +3,12 @@
 
 @using Microsoft.EntityFrameworkCore
 @inject ApplicationDbContext DbContext
-@inject NavigationManager Navigation
 
 <div class="container-fluid">
-    <h4>Tất cả Sản phẩm</h4>
-    <hr />
+    <h2 class="section-title">Tất cả Sản phẩm</h2>
+    <hr class="section-divider" />
     
+    @* Thêm component bộ lọc vào đây *@
     <FilterControls SortChanged="ApplySort" />
 
     @if (pagedProducts == null)
@@ -79,16 +79,17 @@
 
         var query = DbContext.Products.AsQueryable();
         
-        // Áp dụng sắp xếp
+        // --- SỬA LỖI SẮP XẾP ---
+        // Ép kiểu Price thành double để SQLite có thể sắp xếp
         switch (currentSort)
         {
             case "price_asc":
-                query = query.OrderBy(p => p.Price);
+                query = query.OrderBy(p => (double)p.Price);
                 break;
             case "price_desc":
-                query = query.OrderByDescending(p => p.Price);
+                query = query.OrderByDescending(p => (double)p.Price);
                 break;
-            default:
+            default: // Mới nhất
                 query = query.OrderByDescending(p => p.Id);
                 break;
         }
@@ -105,7 +106,7 @@
     private async Task ApplySort(string sort)
     {
         currentSort = sort;
+        // Tải lại sản phẩm với tùy chọn sắp xếp mới
         await LoadProducts();
     }
 }
-

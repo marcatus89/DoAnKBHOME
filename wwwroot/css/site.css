@@ -2,46 +2,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
 :root {
-    --primary-color: #1A2A4C;
-    /* Xanh Navy đậm */
-    --accent-color: #D4AF37;
-    /* Vàng Gold */
+    --primary-color: #1A2A4C; /* Xanh Navy đậm */
+    --accent-color: #D4AF37; /* Vàng Gold */
     --dark-color: #212529;
     --light-gray-color: #f8f9fa;
     --text-color: #333;
     --light-text-color: #adb5bd;
 }
 
-html,
-body {
+html, body {
     font-family: 'Montserrat', sans-serif;
     color: var(--text-color);
-    font-weight: 400;
+    font-weight: 400; 
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-weight: 600;
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600; 
 }
 
 a {
     color: var(--primary-color);
     text-decoration: none;
 }
-
 a:hover {
-    color: #B39B55;
+    color: #121d35;
 }
 
 .btn-primary {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
 }
-
 .btn-primary:hover {
     background-color: #121d35;
     border-color: #121d35;
@@ -56,13 +46,13 @@ a:hover {
 
 .main-content {
     flex: 1;
-    background-color: #ffffff;
+    background-color: #ffffff; 
 }
 
 /* Header */
 .app-header {
     background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     position: sticky;
     top: 0;
     z-index: 1020;
@@ -74,7 +64,6 @@ a:hover {
     font-size: 13px;
     color: #555;
     border-bottom: 1px solid #e9ecef;
-    height:40px;
 }
 
 .header-top .container {
@@ -84,7 +73,7 @@ a:hover {
 }
 
 .header-main {
-    padding: 20px 0;
+    padding: 15px 0;
 }
 
 .header-main .container {
@@ -94,8 +83,7 @@ a:hover {
 }
 
 .header-logo img {
-    width: 130px;
-    height: auto;
+    height: 30px; 
 }
 
 .header-search {
@@ -120,25 +108,31 @@ a:hover {
     background-color: var(--dark-color);
 }
 
-.header-nav ul {
+.header-nav .nav-menu-list {
     margin: 0;
     padding: 0;
     list-style: none;
     display: flex;
 }
 
-.header-nav ul li a {
+.header-nav .nav-menu-list li .nav-link {
     display: block;
     padding: 15px 20px;
     color: #f8f9fa;
     text-decoration: none;
     font-weight: 500;
     transition: background-color 0.3s;
+    border-bottom: 3px solid transparent;
 }
 
-.header-nav ul li a:hover {
+.header-nav .nav-menu-list li .nav-link:hover {
     background-color: #495057;
     color: #fff;
+}
+
+.header-nav .nav-menu-list li .nav-link.active {
+    color: #fff;
+    border-bottom: 3px solid var(--accent-color);
 }
 
 /* Dropdown Menu */
@@ -151,7 +145,7 @@ a:hover {
     position: absolute;
     background-color: #ffffff;
     min-width: 220px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
     z-index: 1;
     border-radius: 4px;
     overflow: hidden;
@@ -188,31 +182,91 @@ a:hover {
     opacity: 1;
 }
 
+/* --- ENHANCED SLIDER STYLES --- */
+#heroCarousel {
+    height: 60vh;
+    min-height: 450px;
+}
 
-.hero-banner::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+#heroCarousel .carousel-item {
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
+    transition: opacity 0.6s ease-in-out; 
 }
 
-.hero-text {
-    z-index: 1;
+#heroCarousel .carousel-item img {
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(50%); 
 }
 
-.hero-text h1 {
-    font-size: 3.5rem;
+#heroCarousel .carousel-caption {
+    top: 50%;
+    transform: translateY(-50%);
+    bottom: auto;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+}
+
+#heroCarousel .carousel-caption h1 {
+    font-size: 3.2rem;
     font-weight: 700;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin-bottom: 1rem;
+}
+#heroCarousel .carousel-caption p {
+    font-size: 1.1rem;
+    font-weight: 300;
 }
 
-.hero-text .btn-light {
+#heroCarousel .carousel-caption .btn-light {
     font-weight: 600;
     padding: 12px 30px;
+    border-radius: 50px;
+    border: 2px solid white;
+    background-color: transparent;
+    color: white;
+    transition: all 0.3s ease;
 }
+#heroCarousel .carousel-caption .btn-light:hover {
+    background-color: white;
+    color: var(--dark-color);
+}
+
+#heroCarousel .carousel-indicators button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin: 0 8px;
+    background-color: #fff;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+#heroCarousel .carousel-indicators .active {
+    opacity: 1;
+}
+
+#heroCarousel .carousel-control-prev,
+#heroCarousel .carousel-control-next {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: background-color 0.3s ease;
+}
+#heroCarousel .carousel-control-prev {
+    left: 2rem;
+}
+#heroCarousel .carousel-control-next {
+    right: 2rem;
+}
+
+#heroCarousel .carousel-control-prev:hover,
+#heroCarousel .carousel-control-next:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+/* --- END SLIDER STYLES --- */
+
 
 /* Collection / Category Section */
 .collection-section {
@@ -245,13 +299,13 @@ a:hover {
     left: 0;
     right: 0;
     padding: 20px;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
     text-align: center;
 }
 
 .collection-card-overlay h3 {
     font-size: 1.5rem;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
 }
 
 
@@ -271,11 +325,11 @@ a:hover {
 
 .product-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
 .product-card .card-img-top {
-    height: 250px;
+    height: 250px; 
     object-fit: cover;
 }
 
@@ -283,9 +337,8 @@ a:hover {
     text-decoration: none;
     color: var(--dark-color);
 }
-
-.product-card .card-body h6 {
-    color: var(--accent-color);
+.product-card .card-body h6.price-tag {
+    color: var(--accent-color); 
     font-weight: 600;
 }
 
@@ -319,7 +372,7 @@ a:hover {
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
     color: #fff;
     padding: 20px;
 }
@@ -360,9 +413,8 @@ a:hover {
     left: 0;
     right: 0;
     padding: 20px;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
 }
-
 .news-category {
     background-color: var(--primary-color);
     color: white;
@@ -389,7 +441,6 @@ a:hover {
     font-size: 1rem;
     margin-bottom: 5px;
 }
-
 .news-list-item span {
     font-size: 13px;
     color: #888;
@@ -410,8 +461,7 @@ a:hover {
 }
 
 .partner-logos img {
-    width: 250px;
-    height: auto;
+    height: 40px;
     margin: 15px;
     filter: grayscale(100%);
     opacity: 0.6;
@@ -425,7 +475,7 @@ a:hover {
 
 /* Footer */
 .app-footer {
-    background-color: var(--dark-color);
+    background-color: var(--dark-color); 
     color: var(--light-text-color);
     padding: 40px 0 20px 0;
 }
@@ -435,8 +485,7 @@ a:hover {
     margin-bottom: 20px;
 }
 
-.app-footer p,
-.app-footer ul li a {
+.app-footer p, .app-footer ul li a {
     font-size: 14px;
     color: var(--light-text-color);
     text-decoration: none;
@@ -463,32 +512,49 @@ a:hover {
     font-size: 13px;
 }
 
-
-.page,
-.main,
-.sidebar,
-.top-row {
-    all: unset;
+/* --- Final Print Styles --- */
+.invoice-logo {
+    height: 60px; 
+    width: auto;
 }
-/* --- NEW: Improved Print Styles --- */
+
+/* QUY TẮC MỚI, MẠNH MẼ HƠN */
+@media screen {
+    .printable-container {
+        display: none;
+    }
+}
+
 @media print {
-    /* Ẩn hoàn toàn tất cả các phần tử trên trang */
     body * {
         visibility: hidden;
     }
 
-    /* Chỉ hiện thị khu vực cần in và các phần tử con của nó */
     #printable-area, #printable-area * {
         visibility: visible;
     }
 
-    /* Đưa khu vực in lên đầu trang để đảm bảo nó chiếm toàn bộ không gian */
     #printable-area {
+        display: block !important;
         position: absolute;
         left: 0;
         top: 0;
         width: 100%;
     }
 }
+/* KẾT THÚC QUY TẮC MỚI */
 
+
+/* --- NProgress bar custom styles --- */
+#nprogress .bar {
+  background: var(--accent-color) !important;
+  height: 3px !important;
+}
+#nprogress .peg {
+  box-shadow: 0 0 10px var(--accent-color), 0 0 5px var(--accent-color) !important;
+}
+#nprogress .spinner-icon {
+  border-top-color: var(--accent-color) !important;
+  border-left-color: var(--accent-color) !important;
+}
 

@@ -56,6 +56,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/lethien/Downloads/DoAnDemo2-master/Pages/Admin/LogisticsDashboard.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vTG9naXN0aWNzRGFzaGJvYXJkLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/lethien/Downloads/DoAnDemo2-master/Pages/Admin/OrderDetailAdmin.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vT3JkZXJEZXRhaWxBZG1pbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -82,6 +86,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/lethien/Downloads/DoAnDemo2-master/Pages/Admin/SalesDashboard.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vU2FsZXNEYXNoYm9hcmQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/lethien/Downloads/DoAnDemo2-master/Pages/Admin/ShipmentCreate.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vU2hpcG1lbnRDcmVhdGUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/lethien/Downloads/DoAnDemo2-master/Pages/Admin/SupplierEdit.razor]

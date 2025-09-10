@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace DoAnTotNghiep.Models
 {
@@ -12,7 +13,7 @@ namespace DoAnTotNghiep.Models
         public int OrderId { get; set; }
         public virtual Order? Order { get; set; }
 
-        public string? ShippingProvider { get; set; } // Đơn vị vận chuyển (VD: GHTK, Viettel Post)
+        public string? ShippingProvider { get; set; } // Đơn vị vận chuyển (VD: GHTK)
         public string? TrackingNumber { get; set; } // Mã vận đơn
 
         public DateTime DispatchedDate { get; set; } = DateTime.Now; // Ngày gửi hàng

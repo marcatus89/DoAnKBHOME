@@ -5,7 +5,7 @@
 @inject NavigationManager Navigation
 @inject IJSRuntime JSRuntime
 
-<h3>Chi tiết Đơn nhập hàng</h3>
+<h3>Chi tiết Đơn nhập hàng #@PurchaseOrderId</h3>
 
 @if (purchaseOrder == null)
 {
@@ -13,7 +13,7 @@
 }
 else
 {
-    @* --- PHIẾU IN --- *@
+    @* --- Khu vực in không đổi --- *@
     <div id="printable-area" class="printable-container">
         <h2 class="text-center">PHIẾU NHẬP KHO</h2>
         <p class="text-center"><strong>Số phiếu:</strong> @purchaseOrder.PurchaseOrderNumber</p>
@@ -68,14 +68,11 @@ else
         </div>
     </div>
 
-
-    @* --- GIAO DIỆN HIỂN THỊ TRÊN WEB --- *@
     <div id="display-area" class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <div>
+             <div>
                 <strong>Số phiếu:</strong> @purchaseOrder.PurchaseOrderNumber | 
                 <strong>Nhà cung cấp:</strong> @purchaseOrder.Supplier?.Name | 
-                <strong>Ngày đặt:</strong> @purchaseOrder.OrderDate.ToString("dd/MM/yyyy") |
                 <strong>Trạng thái:</strong> <span class="badge @(purchaseOrder.Status == "Đã nhận hàng" ? "bg-success" : "bg-warning text-dark")">@purchaseOrder.Status</span>
             </div>
             <button class="btn btn-outline-secondary" @onclick="Print">
@@ -103,7 +100,6 @@ else
             </table>
         </div>
         <div class="card-footer">
-            @* Nút này chỉ hiển thị cho nhân viên Kho và khi đơn hàng chưa được xử lý *@
             <AuthorizeView Roles="Admin, Warehouse">
                 @if (purchaseOrder.Status == "Đã đặt hàng")
                 {
@@ -130,30 +126,36 @@ else
             .FirstOrDefaultAsync(po => po.Id == PurchaseOrderId);
     }
 
-    // --- LOGIC NHẬN HÀNG VÀ CẬP NHẬT KHO ---
     private async Task HandleReceiveItems()
     {
         if (purchaseOrder != null)
         {
-            // Cập nhật số lượng tồn kho cho từng sản phẩm
             foreach (var item in purchaseOrder.Items)
             {
                 var productInDb = await DbContext.Products.FindAsync(item.ProductId);
                 if (productInDb != null)
                 {
                     productInDb.StockQuantity += item.Quantity;
+
+                    // --- GHI LOG KHI NHẬP HÀNG ---
+                    var log = new InventoryLog
+                    {
+                        ProductId = item.ProductId,
+                        QuantityChange = item.Quantity, // Ghi số dương vì là nhập kho
+                        NewQuantity = productInDb.StockQuantity,
+                        Reason = $"Nhập hàng từ phiếu {purchaseOrder.PurchaseOrderNumber}"
+                    };
+                    DbContext.InventoryLogs.Add(log);
                 }
             }
             
-            // Cập nhật trạng thái đơn nhập hàng
             purchaseOrder.Status = "Đã nhận hàng";
             
             await DbContext.SaveChangesAsync();
-            StateHasChanged(); // Yêu cầu UI cập nhật lại để ẩn nút và thay đổi trạng thái
+            StateHasChanged();
         }
     }
     
-    // Hàm gọi JavaScript để in
     private async Task Print()
     {
         await JSRuntime.InvokeVoidAsync("triggerPrint");

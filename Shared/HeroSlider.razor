@@ -1,7 +1,7 @@
 @inject IJSRuntime JSRuntime
 @implements IAsyncDisposable
 
-@* Cấu trúc Slider sử dụng Bootstrap Carousel với hiệu ứng Fade tinh tế hơn *@
+
 <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
     <div class="carousel-indicators">
         <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -65,7 +65,7 @@
 @code {
     private IJSObjectReference? _module;
 
-    // Khởi tạo slider bằng JavaScript sau khi component đã được render
+   
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
@@ -78,7 +78,7 @@
         }
     }
 
-    // Dọn dẹp đối tượng JavaScript khi component bị hủy
+    
     async ValueTask IAsyncDisposable.DisposeAsync()
     {
         if (_module is not null)

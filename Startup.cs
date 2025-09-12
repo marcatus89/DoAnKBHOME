@@ -1,11 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,20 +26,27 @@ namespace DoAnTotNghiep
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(connectionString));
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            // Cấu hình Identity với quy tắc mật khẩu nới lỏng cho môi trường phát triển
+            services.AddIdentity<IdentityUser, IdentityRole>(options => {
+                options.SignIn.RequireConfirmedAccount = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequiredLength = 6;
+            })
                 .AddDefaultTokenProviders()
                 .AddDefaultUI()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
-
+            
+            // Đăng ký tất cả các service nghiệp vụ một cách nhất quán
+            services.AddScoped<ToastService>();
             services.AddScoped<CartService>();
             services.AddScoped<OrderService>();
             services.AddScoped<DashboardService>();
-
-
-            services.AddScoped<ToastService>();
             services.AddScoped<PurchaseOrderService>();
         }
 
@@ -62,9 +64,7 @@ namespace DoAnTotNghiep
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-            
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -77,4 +77,3 @@ namespace DoAnTotNghiep
         }
     }
 }
-

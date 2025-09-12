@@ -21,12 +21,12 @@
         }
     }
 
-    // Khi trang mới đã tải xong, gọi JS để ẩn thanh tiến trình
+   
     private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
     {
         if (module is not null)
         {
-            // Sử dụng try-catch để tránh lỗi nếu module đã bị dispose
+            
             try
             {
                 var task = module.InvokeVoidAsync("stopProgressBar");

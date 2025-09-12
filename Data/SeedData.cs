@@ -12,7 +12,7 @@ namespace DoAnTotNghiep.Data
         {
             try
             {
-                // Bước 1: Seed Categories trước
+                //Seed Categories
                 if (!context.Categories.Any())
                 {
                     logger.LogInformation("Seeding categories...");
@@ -26,11 +26,11 @@ namespace DoAnTotNghiep.Data
                     logger.LogInformation("Categories seeded successfully.");
                 }
 
-                // Bước 2: Seed Products sau khi đã có Categories
+                // Seed Products 
                 if (!context.Products.Any())
                 {
                     logger.LogInformation("Seeding products...");
-                    // Lấy ID của các category vừa tạo
+                    // Lấy ID 
                     var bonCauCategory = context.Categories.FirstOrDefault(c => c.Name == "Bồn cầu");
                     var voiSenCategory = context.Categories.FirstOrDefault(c => c.Name == "Vòi sen");
                     var lavaboCategory = context.Categories.FirstOrDefault(c => c.Name == "Lavabo");

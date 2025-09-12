@@ -5,7 +5,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using DoAnTotNghiep.Data;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace DoAnTotNghiep
@@ -24,19 +23,19 @@ namespace DoAnTotNghiep
                 try
                 {
                     var context = services.GetRequiredService<ApplicationDbContext>();
-
+                    
                     // Tự động áp dụng tất cả các migration chưa được thực thi.
                     await context.Database.MigrateAsync();
                     logger.LogInformation("Database migrations applied successfully.");
 
-                    // Bây giờ, việc seed data đã an toàn vì các bảng chắc chắn đã tồn tồn tại
-                    // Sửa lỗi: Truyền logger vào phương thức Initialize
+                    // Thêm dữ liệu mẫu
                     SeedData.Initialize(context, logger);
                     await SeedIdentity.SeedRolesAndAdminAsync(services);
                 }
                 catch (Exception ex)
                 {
                     logger.LogError(ex, "An error occurred during database initialization or seeding.");
+                    throw; 
                 }
             }
 
@@ -51,4 +50,3 @@ namespace DoAnTotNghiep
                 });
     }
 }
-

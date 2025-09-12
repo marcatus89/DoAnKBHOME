@@ -176,6 +176,7 @@
 /Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/DoAnTotNghiep.MvcApplicationPartsAssemblyInfo.cache
 /Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/DoAnTotNghiep.RazorAssemblyInfo.cache
 /Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/DoAnTotNghiep.RazorAssemblyInfo.cs
+/Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/DoAnTotNghiep.sourcelink.json
 /Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/rjimswa.dswa.cache.json
 /Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/rjsmrazor.dswa.cache.json
 /Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/rjsmcshtml.dswa.cache.json
@@ -248,9 +249,10 @@
 /Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/compressed/q0nzyhjus9-wk8x8xm0ah.gz
 /Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/compressed/lisrbnqj3j-sjnzgf7e1h.gz
 /Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/compressed/quow6eeltf-psxpu4y82n.gz
+/Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/compressed/sh2e58k8mv-kp56wiwogk.gz
 /Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/compressed/9zciygj8ks-61n19gt1b8.gz
-/Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/compressed/fbp68qa2f9-jl8be1hf96.gz
-/Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/compressed/1ya2wix15p-l5s0wxh1qi.gz
+/Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/compressed/fbp68qa2f9-4jjygs5p8v.gz
+/Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/compressed/1ya2wix15p-u0idqzoknv.gz
 /Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/staticwebassets.build.json
 /Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/staticwebassets.build.json.cache
 /Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/staticwebassets.development.json
@@ -261,5 +263,3 @@
 /Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/DoAnTotNghiep.pdb
 /Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/DoAnTotNghiep.genruntimeconfig.cache
 /Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/ref/DoAnTotNghiep.dll
-/Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/DoAnTotNghiep.sourcelink.json
-/Users/lethien/Downloads/DoAnDemo2-master/obj/Debug/net9.0/compressed/sh2e58k8mv-6us2vyytpt.gz

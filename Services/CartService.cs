@@ -9,13 +9,14 @@ namespace DoAnTotNghiep.Services
     {
         public event Action? OnChange;
         private List<CartItem> _items = new List<CartItem>();
-        public IReadOnlyList<CartItem> Items => _items.AsReadOnly();
 
+        public IReadOnlyList<CartItem> Items => _items.AsReadOnly();
         public decimal Total => _items.Sum(item => item.Price * item.Quantity);
 
         public void AddToCart(Product product)
         {
             var existingItem = _items.FirstOrDefault(i => i.ProductId == product.Id);
+            
             if (existingItem != null)
             {
                 existingItem.Quantity++;

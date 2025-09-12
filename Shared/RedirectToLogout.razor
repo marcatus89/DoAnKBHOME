@@ -5,7 +5,7 @@
 @code {
     protected override void OnInitialized()
     {
-        // Buộc tải lại trang để thực hiện POST request đến trang Logout
+        
         Navigation.NavigateTo("Identity/Account/Logout", forceLoad: true);
     }
 }

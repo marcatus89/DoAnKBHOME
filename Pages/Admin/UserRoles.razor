@@ -113,7 +113,7 @@ else
             // Chặn xoá Admin cuối cùng
             if (toRemove.Contains("Admin"))
             {
-                // còn những admin khác?
+                
                 var admins = await UserManager.Users.ToListAsync();
                 var otherAdminCount = 0;
                 foreach (var u in admins)
@@ -164,7 +164,7 @@ else
         }
     }
 
-    // ViewModels (giữ nguyên như bạn đang dùng)
+    // ViewModels
     private class UserRolesViewModel
     {
         public string? UserId { get; set; }

@@ -447,7 +447,7 @@ a:hover {
 }
 
 
-/* Partners Section */
+
 .partners-section {
     padding: 80px 0;
     background-color: #ffffff;
@@ -473,7 +473,7 @@ a:hover {
     opacity: 1;
 }
 
-/* Footer */
+
 .app-footer {
     background-color: var(--dark-color); 
     color: var(--light-text-color);
@@ -519,17 +519,17 @@ a:hover {
 }
 
 @media print {
-    /* Ẩn hoàn toàn tất cả các phần tử trên trang */
+   
     body * {
         visibility: hidden;
     }
 
-    /* Chỉ hiện thị khu vực cần in và các phần tử con của nó */
+    
     #printable-area, #printable-area * {
         visibility: visible;
     }
 
-    /* Đưa khu vực in lên đầu trang để đảm bảo nó chiếm toàn bộ không gian */
+    
     #printable-area {
         position: absolute;
         left: 0;
@@ -538,7 +538,7 @@ a:hover {
     }
 }
 
-/* --- NProgress bar custom styles --- */
+
 #nprogress .bar {
   background: var(--accent-color) !important;
   height: 3px !important;

@@ -2,12 +2,12 @@
 @implements IDisposable
 @inject CartService CartSvc
 
-
 <h3>Giỏ hàng của bạn</h3>
 
 @if (!CartSvc.Items.Any())
 {
-    <p>Giỏ hàng của bạn đang trống.</p>
+    <p>Giỏ hàng của bạn đang trống. Hãy tiếp tục mua sắm!</p>
+    <a href="/san-pham" class="btn btn-primary">Xem tất cả sản phẩm</a>
 }
 else
 {
@@ -28,29 +28,27 @@ else
                     <td>@item.ProductName</td>
                     <td>@item.Price.ToString("n0")</td>
                     <td>
-                        <button class="btn btn-secondary btn-sm"
-                            @onclick="() => UpdateQuantity(item, item.Quantity - 1)">-</button>
+                        <button class="btn btn-secondary btn-sm" @onclick="() => UpdateItemQuantity(item, item.Quantity - 1)">-</button>
                         <span class="mx-2">@item.Quantity</span>
-                        <button class="btn btn-secondary btn-sm"
-                            @onclick="() => UpdateQuantity(item, item.Quantity + 1)">+</button>
+                        <button class="btn btn-secondary btn-sm" @onclick="() => UpdateItemQuantity(item, item.Quantity + 1)">+</button>
                     </td>
                     <td>@((item.Price * item.Quantity).ToString("n0"))</td>
                     <td>
-                        <button class="btn btn-danger btn-sm" @onclick="() => RemoveItem(item.ProductId)">Xóa</button>
+                        <button class="btn btn-danger btn-sm" @onclick="() => RemoveItemFromCart(item.ProductId)">Xóa</button>
                     </td>
                 </tr>
             }
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="3" class="text-right"><strong>Tổng cộng:</strong></td>
+                <td colspan="3" class="text-end"><strong>Tổng cộng:</strong></td>
                 <td><strong>@CartSvc.Total.ToString("n0") VNĐ</strong></td>
                 <td></td>
             </tr>
         </tfoot>
     </table>
-    <div class="text-right">
-        <a href="/thanh-toan" class="btn btn-success">Tiến hành Thanh toán</a>
+    <div class="text-end">
+         <a href="/thanh-toan" class="btn btn-success">Tiến hành Thanh toán</a>
     </div>
 }
 
@@ -62,12 +60,12 @@ else
         CartSvc.OnChange += StateHasChanged;
     }
 
-    private void UpdateQuantity(CartItem item, int quantity)
+    private void UpdateItemQuantity(CartItem item, int quantity)
     {
         CartSvc.UpdateQuantity(item.ProductId, quantity);
     }
 
-    private void RemoveItem(int productId)
+    private void RemoveItemFromCart(int productId)
     {
         CartSvc.RemoveFromCart(productId);
     }

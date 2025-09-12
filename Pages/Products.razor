@@ -79,8 +79,7 @@
 
         var query = DbContext.Products.AsQueryable();
         
-        // --- SỬA LỖI SẮP XẾP ---
-        // Ép kiểu Price thành double để SQLite có thể sắp xếp
+       
         switch (currentSort)
         {
             case "price_asc":
@@ -89,7 +88,7 @@
             case "price_desc":
                 query = query.OrderByDescending(p => (double)p.Price);
                 break;
-            default: // Mới nhất
+            default:
                 query = query.OrderByDescending(p => p.Id);
                 break;
         }
@@ -106,7 +105,7 @@
     private async Task ApplySort(string sort)
     {
         currentSort = sort;
-        // Tải lại sản phẩm với tùy chọn sắp xếp mới
+        
         await LoadProducts();
     }
 }

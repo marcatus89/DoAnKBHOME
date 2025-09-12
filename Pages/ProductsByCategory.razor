@@ -93,8 +93,7 @@
         {
             var query = DbContext.Products.Where(p => p.CategoryId == CategoryId);
             
-            // --- SỬA LỖI SẮP XẾP ---
-            // Ép kiểu Price thành double để SQLite có thể sắp xếp
+           
             switch (currentSort)
             {
                 case "price_asc":
